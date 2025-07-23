@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+  <link rel="shortcut icon" href="https://kaloodinaz.github.io/icons/icon-72x72.png">
+<link rel="apple-touch-icon" sizes="192x192" href="https://kaloodinaz.github.io/icons/icon-192x192.png">
+<link rel="manifest" href="https://kaloodinaz.github.io/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インチ・センチ換算ツール | 精密な単位変換計算機</title>
+    <meta name="description" content="インチからセンチメートル、センチメートルからインチへの正確な換算ツール。建築、DIY、デザインに最適な無料オンライン計算機。モバイル対応で使いやすい。">
+    <meta name="keywords" content="インチ センチ 換算, inch cm 変換, 単位変換, 長さ換算, インチ計算機, センチメートル計算">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 2rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .logo svg {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .converter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .swap-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .swap-btn:hover {
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .quick-convert {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-btn {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #495057;
+        }
+
+        .seo-content {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .seo-content h2 {
+            color: #333;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .seo-content h3 {
+            color: #555;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .converter-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .swap-btn {
+                width: 50px;
+                height: 50px;
+                align-self: center;
+                justify-self: center;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .converter-card, .info-section, .seo-content {
+                padding: 1.5rem;
+            }
+
+            .quick-convert {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .quick-convert {
+                grid-template-columns: 1fr;
+            }
+
+            .converter-card, .info-section, .seo-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <script>
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js')
+.then(registration => {console.log('Service Worker registered successfully:', registration);})
+.catch(error => {console.log('Error in Service Worker registration:', error);});});}
+</script>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="25" cy="25" r="20" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                    <path d="M15 25h20M25 15v20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="35" cy="15" r="3" fill="white"/>
+                    <circle cx="15" cy="35" r="3" fill="white"/>
+                    <text x="35" y="19" fill="#667eea" font-size="8" font-weight="bold">in</text>
+                    <text x="12" y="39" fill="#667eea" font-size="8" font-weight="bold">cm</text>
+                </svg>
+                <h1>インチ・センチ換算ツール</h1>
+            </div>
+            <p class="subtitle">精密な単位変換で、あらゆる測定を簡単に</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="converter-card">
+            <div class="converter-grid">
+                <div class="input-group">
+                    <label for="inches">インチ (inch)</label>
+                    <input type="number" id="inches" placeholder="インチを入力" step="any">
+                </div>
+                
+                <button class="swap-btn" onclick="swapValues()">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                        <path d="M7 4V2C7 1.45 7.45 1 8 1S9 1.45 9 2V4H15V2C15 1.45 15.45 1 16 1S17 1.45 17 2V4H19C20.1 4 21 4.9 21 6V8H3V6C3 4.9 3.9 4 5 4H7ZM3 19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V10H3V19Z"/>
+                        <path d="M12 14L8 18L12 22M16 10L12 14L8 10" stroke="white" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </button>
+                
+                <div class="input-group">
+                    <label for="centimeters">センチメートル (cm)</label>
+                    <input type="number" id="centimeters" placeholder="センチメートルを入力" step="any">
+                </div>
+            </div>
+
+            <div class="quick-convert">
+                <button class="quick-btn" onclick="quickConvert(1, 'inch')">1 inch</button>
+                <button class="quick-btn" onclick="quickConvert(6, 'inch')">6 inch</button>
+                <button class="quick-btn" onclick="quickConvert(12, 'inch')">12 inch</button>
+                <button class="quick-btn" onclick="quickConvert(10, 'cm')">10 cm</button>
+                <button class="quick-btn" onclick="quickConvert(30, 'cm')">30 cm</button>
+                <button class="quick-btn" onclick="quickConvert(50, 'cm')">50 cm</button>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>換算公式と基本情報</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>📏 インチ → センチメートル</h3>
+                    <div class="formula-box">
+                        センチメートル = インチ × 2.54
+                    </div>
+                    <p>1インチは正確に2.54センチメートルです。この換算率は国際的に統一された標準値です。</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📐 センチメートル → インチ</h3>
+                    <div class="formula-box">
+                        インチ = センチメートル ÷ 2.54
+                    </div>
+                    <p>センチメートルをインチに変換する際は、2.54で割ることで正確な値を得られます。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo-content">
+            <h2>インチ・センチ換算ツールの完全ガイド</h2>
+            
+            <p>現代社会において、<span class="highlight">インチとセンチメートルの換算</span>は日常生活からビジネスシーンまで幅広く必要とされる重要なスキルです。本ツールは、建築、デザイン、DIY、製造業、貿易など、様々な分野で活用できる高精度な換算計算機として開発されました。</p>
+
+            <h3>なぜインチ・センチ換算が重要なのか</h3>
+            <p>グローバル化が進む現代において、異なる単位系の理解と換算能力は必須です。アメリカ、イギリスなどの英語圏では今でもインペリアル単位系（インチ、フィート、ヤードなど）が広く使用されており、一方で日本を含む多くの国ではメートル法（センチメートル、メートルなど）が標準となっています。</p>
+
+            <p>特に以下の分野では<span class="highlight">正確な単位換算</span>が極めて重要です：</p>
+
+            <h3>建築・設計業界での活用</h3>
+            <p>建築図面や設計図では、海外の建材や設備を使用する際にインチ表記とセンチメートル表記が混在することがよくあります。例えば、アメリカ製の配管材料は3/4インチ、1インチといった規格で販売されていますが、日本の建築現場ではセンチメートル単位での施工が一般的です。このような場面で、<span class="highlight">1インチ = 2.54センチメートル</span>という換算率を正確に適用することが、施工ミスを防ぐ重要な要因となります。</p>
+
+            <h3>製造業・エンジニアリングでの応用</h3>
+            <p>機械設計や製品開発において、海外のパートナー企業との協業や国際規格への対応は避けて通れません。特に精密機械、自動車部品、電子機器などの分野では、ミリ単位、時には0.1ミリ単位での精度が要求されます。インチからセンチメートル、さらにミリメートルへの正確な換算は、製品品質を左右する決定的な要素です。</p>
+<script type="text/javascript">
+     atOptions = {
+       'key' : '0fee57062f9bb330edc13a4e4349876d',
+       'format' : 'iframe',
+       'height' : 250,
+       'width' : 300,
+       'params' : {}
+     };
+   </script>
+   <script type="text/javascript" src="//www.highperformanceformat.com/0fee57062f9bb330edc13a4e4349876d/invoke.js"></script>
+            <h3>DIY・ホームセンターでの実用例</h3>
+            <p>近年のDIYブームにより、一般消費者もインチ・センチメートル換算の必要性に直面することが増えています。海外製の工具、ネジ、木材などを使用する際、サイズ表記がインチで記載されていることが多く、日本のホームセンターで対応する材料を探す際にセンチメートル換算が必要となります。</p>
+
+            <h3>スマートフォン・タブレットのディスプレイサイズ</h3>
+            <p>電子機器のディスプレイサイズは traditionally インチで表記されます。5.5インチスマートフォン、10.1インチタブレット、27インチモニターなど、これらの実際のサイズをセンチメートルで理解することは、購入判断や設置計画において重要な情報となります。</p>
+
+            <h3>国際貿易・輸出入業務</h3>
+            <p>商品の寸法や容量を海外の取引先に伝える際、相手国で使用されている単位系に合わせた情報提供が求められます。アメリカ向け輸出では商品サイズをインチで、ヨーロッパ向けではセンチメートルで表記するなど、<span class="highlight">適切な単位換算</span>は円滑な国際取引の基礎となります。</p>
+
+            <h3>本ツールの特徴と優位性</h3>
+            <p>当インチ・センチ換算ツールは以下の特徴により、他の換算ツールと差別化を図っています：</p>
+
+            <h3>高精度計算エンジン</h3>
+            <p>小数点以下の細かい数値まで正確に計算し、工業用途や精密作業にも対応可能な精度を実現しています。四捨五入や切り捨て処理も適切に行い、実用的な結果を提供します。</p>
+
+            <h3>直感的なユーザーインターフェース</h3>
+            <p>どちらの単位からでも入力可能な双方向換算機能により、ユーザーは自分のニーズに合わせて柔軟に利用できます。また、よく使用される数値のクイック変換ボタンにより、作業効率を大幅に向上させています。</p>
+
+            <h3>モバイル最適化</h3>
+            <p>レスポンシブデザインにより、スマートフォンやタブレットでも快適に利用可能です。現場作業中や外出先での緊急な換算ニーズにも即座に対応できます。</p>
+
+            <h3>教育的価値</h3>
+            <p>単純な換算だけでなく、換算の原理や公式も併せて表示することで、ユーザーの理解を深め、将来的には暗算での概算能力向上にも貢献します。</p>
+
+            <h3>よくある換算例</h3>
+            <p>日常的によく使用される換算例をご紹介します。これらの値を覚えておくと、日常生活で大変便利です：</p>
+
+            <p>• <span class="highlight">1インチ = 2.54cm</span>（基本換算率）<br>
+            • 6インチ = 15.24cm（スマートフォンの大型モデル）<br>
+            • 12インチ = 30.48cm（ノートパソコンの小型モデル）<br>
+            • 24インチ = 60.96cm（一般的なモニターサイズ）<br>
+            • 10cm = 3.937インチ（概算で約4インチ）<br>
+            • 30cm = 11.811インチ（概算で約12インチ）</p>
+
+            <h3>業界別活用事例</h3>
+            <p>各業界での具体的な活用例を紹介することで、本ツールの汎用性をご理解いただけます。</p>
+
+            <h3>アパレル業界</h3>
+            <p>服のサイズ表記において、海外ブランドではインチ表記（ウエスト32インチなど）が一般的ですが、日本国内での販売時にはセンチメートル表記への換算が必要です。正確なサイズ換算により、返品率の低下と顧客満足度の向上が期待できます。</p>
+
+            <h3>印刷・出版業界</h3>
+            <p>印刷物のサイズ指定において、海外の印刷機や用紙規格がインチベースであることが多く、日本国内での制作時にセンチメートルやミリメートルでの作業指示が必要となります。</p>
+
+            <h3>まとめ</h3>
+            <p>インチ・センチメートル換算は、現代のグローバル社会において必須のスキルです。本ツールを活用することで、正確で迅速な換算が可能となり、あらゆる分野での作業効率向上に貢献できます。ブックマークしていただき、必要な時にいつでもご利用ください。</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 インチ・センチ換算ツール. 高精度な単位変換をいつでも、どこでも。</p>
+        </div>
+    </footer>
+
+    <script>
+        const inchInput = document.getElementById('inches');
+        const cmInput = document.getElementById('centimeters');
+
+        // リアルタイム換算
+        inchInput.addEventListener('input', function() {
+            const inches = parseFloat(this.value);
+            if (!isNaN(inches)) {
+                const cm = (inches * 2.54).toFixed(4);
+                cmInput.value = cm;
+            } else {
+                cmInput.value = '';
+            }
+        });
+
+        cmInput.addEventListener('input', function() {
+            const cm = parseFloat(this.value);
+            if (!isNaN(cm)) {
+                const inches = (cm / 2.54).toFixed(4);
+                inchInput.value = inches;
+            } else {
+                inchInput.value = '';
+            }
+        });
+
+        // 値の交換
+        function swapValues() {
+            const tempInch = inchInput.value;
+            const tempCm = cmInput.value;
+            
+            inchInput.value = tempCm ? (parseFloat(tempCm) / 2.54).toFixed(4) : '';
+            cmInput.value = tempInch ? (parseFloat(tempInch) * 2.54).toFixed(4) : '';
+        }
+
+        // クイック変換
+        function quickConvert(value, unit) {
+            if (unit === 'inch') {
+                inchInput.value = value;
+                cmInput.value = (value * 2.54).toFixed(4);
+            } else {
+                cmInput.value = value;
+                inchInput.value = (value / 2.54).toFixed(4);
+            }
+        }
+
+        // フォーカス時のアニメーション
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
